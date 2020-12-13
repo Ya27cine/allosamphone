@@ -20,14 +20,21 @@ class CategoryController extends Controller
      * @Route("/", name="category_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
         $categories = $em->getRepository('AdminBundle:Category')->findAll();
 
+        $paginator = $this->get('knp_paginator');
+        $pagination_categories = $paginator->paginate(
+                        $categories , /* query NOT result */
+                        $request->query->getInt('page', 1), /*page number*/
+                        5 /*limit per page*/
+        );
+
         return $this->render('category/index.html.twig', array(
-            'categories' => $categories,
+            'categories' => $pagination_categories,
         ));
     }
 
