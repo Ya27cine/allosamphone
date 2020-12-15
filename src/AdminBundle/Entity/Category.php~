@@ -35,6 +35,12 @@ class Category
      */
     private $createdAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Product::class,  mappedBy="category")
+     */
+    private $products;
+
+
 
     /**
      * Get id
@@ -92,5 +98,46 @@ class Category
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add product
+     *
+     * @param \AdminBundle\Entity\Product $product
+     *
+     * @return Category
+     */
+    public function addProduct(\AdminBundle\Entity\Product $product)
+    {
+        $this->products[] = $product;
+
+        return $this;
+    }
+
+    /**
+     * Remove product
+     *
+     * @param \AdminBundle\Entity\Product $product
+     */
+    public function removeProduct(\AdminBundle\Entity\Product $product)
+    {
+        $this->products->removeElement($product);
+    }
+
+    /**
+     * Get products
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProducts()
+    {
+        return $this->products;
     }
 }

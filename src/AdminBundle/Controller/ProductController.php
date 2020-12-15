@@ -24,9 +24,29 @@ class ProductController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $products = $em->getRepository('AdminBundle:Product')->findAll();
+        //$products = $em->getRepository('AdminBundle:Product')->findAll();
+        $categories = $em->getRepository('AdminBundle:Category')->findAll();
+
 
         return $this->render('product/index.html.twig', array(
+            //'products' => $products,
+            'categories' =>  $categories,
+        ));
+    }
+    /**
+     * Lists all product entities.
+     *
+     * @Route("/category/{id}", name="product_by_category")
+     * @Method("GET")
+     */
+    public function prodCategAction($id)
+    {
+         $em = $this->getDoctrine()->getManager();
+         
+         $category = $em->getRepository('AdminBundle:Category')->find($id);
+         $products = $category->getProducts();
+
+        return $this->render('product/products.html.twig', array(
             'products' => $products,
         ));
     }
@@ -65,6 +85,7 @@ class ProductController extends Controller
      */
     public function showAction(Product $product)
     {
+        
         $deleteForm = $this->createDeleteForm($product);
 
         return $this->render('product/show.html.twig', array(

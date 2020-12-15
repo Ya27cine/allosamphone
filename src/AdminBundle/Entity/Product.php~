@@ -31,6 +31,8 @@ class Product
     */
     private $category;
 
+  
+
     /**
      * @var string
      *
@@ -150,5 +152,46 @@ class Product
     public function getCategory()
     {
         return $this->category;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->stock = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add stock
+     *
+     * @param \AppBundle\Entity\Stock $stock
+     *
+     * @return Product
+     */
+    public function addStock(\AppBundle\Entity\Stock $stock)
+    {
+        $this->stock[] = $stock;
+
+        return $this;
+    }
+
+    /**
+     * Remove stock
+     *
+     * @param \AppBundle\Entity\Stock $stock
+     */
+    public function removeStock(\AppBundle\Entity\Stock $stock)
+    {
+        $this->stock->removeElement($stock);
+    }
+
+    /**
+     * Get stock
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getStock()
+    {
+        return $this->stock;
     }
 }

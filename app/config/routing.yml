@@ -1,3 +1,7 @@
+app_stock:
+    resource: "@AppBundle/Controller/StockController.php"
+    type:     annotation
+
 admin:
     resource: "@AdminBundle/Controller/"
     type:     annotation
