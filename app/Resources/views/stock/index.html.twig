@@ -1,0 +1,47 @@
+{% extends 'admin.html.twig' %}
+
+{% block body %}
+    <h1> Les Varients</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Title</th>
+                <th>Value</th>
+                <th>Ref</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for stock in stocks %}
+            <tr>
+                <td><a href="{{ path('stock_show', { 'id': stock.id }) }}">{{ stock.id }}</a></td>
+                <td>{{ stock.product.libelle }}</td>
+                <td>{{ stock.price }}</td>
+                <td>{{ stock.title }}</td>
+                <td>{{ stock.value }}</td>
+                <td>{{ stock.ref }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('stock_show', { 'id': stock.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('stock_edit', { 'id': stock.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('stock_new') }}">Create a new stock</a>
+        </li>
+    </ul>
+{% endblock %}

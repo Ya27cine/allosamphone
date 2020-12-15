@@ -1,0 +1,48 @@
+{% extends 'admin.html.twig' %}
+
+{% block body %}
+    <h1>Stock</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ stock.id }}</td>
+            </tr>
+            <tr>
+                <th>Quantity</th>
+                <td>{{ stock.quantity }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ stock.price }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ stock.title }}</td>
+            </tr>
+            <tr>
+                <th>Value</th>
+                <td>{{ stock.value }}</td>
+            </tr>
+            <tr>
+                <th>Ref</th>
+                <td>{{ stock.ref }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('stock_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('stock_edit', { 'id': stock.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
