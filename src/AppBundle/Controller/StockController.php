@@ -17,28 +17,35 @@ class StockController extends Controller
     /**
      * Lists all stock entities.
      *
-     * @Route("/", name="stock_index")
+     * @Route("/{id_prod}/variant/{libelle}", name="stock_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction($id_prod, $libelle)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $stocks = $em->getRepository('AppBundle:Stock')->findAll();
+        $stocks = $em->createQuery("select p FROM AppBundle:Stock p where p.product = :id")
+                      ->setParameter("id", $id_prod);
 
         return $this->render('stock/index.html.twig', array(
-            'stocks' => $stocks,
+            'stocks' => $stocks->getResult(),
+            'id_prod' => $id_prod,
+            'libelle' => $libelle
         ));
     }
 
     /**
      * Creates a new stock entity.
      *
-     * @Route("/new", name="stock_new")
+     * @Route("/{id_prod}/new", name="stock_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, $id_prod)
     {
+        
+        // get product 
+         $produit = $this->getDoctrine()->getManager()->getRepository('AdminBundle:Product')->find($id_prod);
+
         $stock = new Stock();
         $form = $this->createForm('AppBundle\Form\StockType', $stock);
         $form->handleRequest($request);
@@ -46,14 +53,17 @@ class StockController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($stock);
+            $stock->setProduct( $produit );//select product auto.
             $em->flush();
 
             return $this->redirectToRoute('stock_show', array('id' => $stock->getId()));
         }
 
+       
         return $this->render('stock/new.html.twig', array(
             'stock' => $stock,
             'form' => $form->createView(),
+            'produit' => $produit->getLibelle(),
         ));
     }
 
@@ -84,6 +94,7 @@ class StockController extends Controller
         $deleteForm = $this->createDeleteForm($stock);
         $editForm = $this->createForm('AppBundle\Form\StockType', $stock);
         $editForm->handleRequest($request);
+
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();

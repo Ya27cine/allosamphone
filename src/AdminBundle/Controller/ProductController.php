@@ -39,15 +39,23 @@ class ProductController extends Controller
      * @Route("/category/{id}", name="product_by_category")
      * @Method("GET")
      */
-    public function prodCategAction($id)
+    public function prodCategAction($id, Request $request)
     {
          $em = $this->getDoctrine()->getManager();
          
          $category = $em->getRepository('AdminBundle:Category')->find($id);
          $products = $category->getProducts();
 
+         $paginator = $this->get('knp_paginator');
+         $pagination_products = $paginator->paginate(
+                        $products , /* query NOT result */
+                        $request->query->getInt('page', 1), /*page number*/
+                        5 /*limit per page*/
+         );
+
         return $this->render('product/products.html.twig', array(
-            'products' => $products,
+            'products' => $pagination_products,
+            'category' => $category->getName(),
         ));
     }
 

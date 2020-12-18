@@ -13,9 +13,11 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
+         $em = $this->getDoctrine()->getManager();
+         $categories = $em->getRepository("AdminBundle:Category")->findAll();
         // replace this example code with whatever you need
         return $this->render('default/pages/home.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+            'categories' => $categories,
         ]);
     }
 
@@ -29,3 +31,4 @@ class DefaultController extends Controller
         return $this->render('default/admin.html.twig');
     }
 }
+

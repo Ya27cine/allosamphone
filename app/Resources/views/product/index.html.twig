@@ -1,15 +1,15 @@
 {% extends 'admin.html.twig' %}
 
 {% block body %}
-    <h1>Products</h1>
+    <h1>Products by category</h1>
 
 
 
     <div class="container">
         <div class="row my-3">
             {% for category in  categories %}
-                 <div class="card" style="width: 25%;">
-                      <img class="card-img-top" src="{{asset('front/images/categories.jpg')}}" alt="Card image cap">
+                 <div class="card" style="width: 20%;">
+                      <img class="card-img-top" src="{{asset('front/images/products.png')}}" alt="Card image cap">
                       <div class="card-body">
                         <p class="card-text"> <a href="{{ path('product_by_category', { 'id': category.id }) }}"> {{  category.name }} </a></p>
                       </div>
@@ -20,6 +20,5 @@
     </div>
 
 
-      
 {% endblock %}
 

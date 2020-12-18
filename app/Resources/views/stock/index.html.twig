@@ -1,9 +1,14 @@
 {% extends 'admin.html.twig' %}
 
 {% block body %}
-    <h1> Les Varients</h1>
+    <h1> Les Varients :  {{ libelle }} - ID : {{ id_prod }}</h1>
 
-    <table>
+ <div class="row my-2">
+        <div class="col-md-3"><a  class="btn btn-primary my-1" href="{{ path('stock_new', {'id_prod': id_prod}) }}">Create a new Va</a></div>
+        <div class="col-md-9"> <input type="text" id="myInput" class="form-control" placeholder="Search by Name"> </div>
+    </div>
+
+    <table id="myTable" class="table table-striped table-bordered"  style="width:100%">
         <thead>
             <tr>
                 <th>Id</th>
@@ -19,29 +24,36 @@
         {% for stock in stocks %}
             <tr>
                 <td><a href="{{ path('stock_show', { 'id': stock.id }) }}">{{ stock.id }}</a></td>
-                <td>{{ stock.product.libelle }}</td>
+                <td>{{ stock.quantity}}</td>
                 <td>{{ stock.price }}</td>
                 <td>{{ stock.title }}</td>
                 <td>{{ stock.value }}</td>
                 <td>{{ stock.ref }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('stock_show', { 'id': stock.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('stock_edit', { 'id': stock.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                <td>              
+                    <a class="btn btn-primary" href="{{ path('stock_show', { 'id': stock.id }) }}">show</a>            
+                    <a class="btn btn-warning" href="{{ path('stock_edit', { 'id': stock.id }) }}">edit</a>                  
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('stock_new') }}">Create a new stock</a>
-        </li>
-    </ul>
+
+{% endblock %}
+
+
+
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('front/jquery.js')}}"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+          $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+              $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+          });
+        });
+    </script>
 {% endblock %}
