@@ -50,7 +50,7 @@ class ProductController extends Controller
          $pagination_products = $paginator->paginate(
                         $products , /* query NOT result */
                         $request->query->getInt('page', 1), /*page number*/
-                        5 /*limit per page*/
+                        15 /*limit per page*/
          );
 
         return $this->render('product/products.html.twig', array(
@@ -73,6 +73,15 @@ class ProductController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+
+            $file = $product->getImage();
+            $fileName = md5( uniqid() ).'.'.$file->guessExtension();
+            $file->move($this->getParameter('upload_directory'), $fileName);
+
+            $product->setImage( $fileName );
+
+     
             $em->persist($product);
             $em->flush();
 
@@ -110,12 +119,24 @@ class ProductController extends Controller
      */
     public function editAction(Request $request, Product $product)
     {
+        $old_img = $product->getImage();
+
         $deleteForm = $this->createDeleteForm($product);
         $editForm = $this->createForm('AdminBundle\Form\ProductType', $product);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            if ( $product->getImage() == null) {
+                 $product->setImage( $old_img );
+             }else{
+                $file = $product->getImage();
+                $fileName = md5( uniqid() ).'.'.$file->guessExtension();
+                $file->move($this->getParameter('upload_directory'), $fileName);
+                $product->setImage( $fileName );
+             }
+
             $this->getDoctrine()->getManager()->flush();
+
 
             return $this->redirectToRoute('product_edit', array('id' => $product->getId()));
         }

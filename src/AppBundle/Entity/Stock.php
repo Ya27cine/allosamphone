@@ -62,6 +62,37 @@ class Stock
      */
     private $ref;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="img1", type="string", length=255)
+     */
+    private $img1;
+
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="img2", type="string", length=255)
+     */
+    private $img2;
+
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="img3", type="string", length=255)
+     */
+    private $img3;
+
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="img4", type="string", length=255)
+     */
+    private $img4;
+
+
+   
+
 
     /**
      * Get id
@@ -215,5 +246,142 @@ class Stock
     public function getProduct()
     {
         return $this->product;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->images = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add image
+     *
+     * @param \AdminBundle\Entity\Images $image
+     *
+     * @return Stock
+     */
+    public function addImage(\AdminBundle\Entity\Images $image)
+    {
+        $this->images[] = $image;
+
+        return $this;
+    }
+
+    /**
+     * Remove image
+     *
+     * @param \AdminBundle\Entity\Images $image
+     */
+    public function removeImage(\AdminBundle\Entity\Images $image)
+    {
+        $this->images->removeElement($image);
+    }
+
+    /**
+     * Get images
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    /**
+     * Set img1
+     *
+     * @param string $img1
+     *
+     * @return Stock
+     */
+    public function setImg1($img1)
+    {
+        $this->img1 = $img1;
+
+        return $this;
+    }
+
+    /**
+     * Get img1
+     *
+     * @return string
+     */
+    public function getImg1()
+    {
+        return $this->img1;
+    }
+
+    /**
+     * Set img2
+     *
+     * @param string $img2
+     *
+     * @return Stock
+     */
+    public function setImg2($img2)
+    {
+        $this->img2 = $img2;
+
+        return $this;
+    }
+
+    /**
+     * Get img2
+     *
+     * @return string
+     */
+    public function getImg2()
+    {
+        return $this->img2;
+    }
+
+    /**
+     * Set img3
+     *
+     * @param string $img3
+     *
+     * @return Stock
+     */
+    public function setImg3($img3)
+    {
+        $this->img3 = $img3;
+
+        return $this;
+    }
+
+    /**
+     * Get img3
+     *
+     * @return string
+     */
+    public function getImg3()
+    {
+        return $this->img3;
+    }
+
+    /**
+     * Set img4
+     *
+     * @param string $img4
+     *
+     * @return Stock
+     */
+    public function setImg4($img4)
+    {
+        $this->img4 = $img4;
+
+        return $this;
+    }
+
+    /**
+     * Get img4
+     *
+     * @return string
+     */
+    public function getImg4()
+    {
+        return $this->img4;
     }
 }

@@ -3,6 +3,7 @@
 namespace AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Product
@@ -31,6 +32,13 @@ class Product
     */
     private $category;
 
+    /**
+     *
+     * @ORM\Column(name="image")
+     * @Assert\NotBlank(groups={"new"}, message="Merci de mettre une image !")
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg"})
+     */
+    private $image;
   
 
     /**
@@ -193,5 +201,31 @@ class Product
     public function getStock()
     {
         return $this->stock;
+    }
+
+
+
+    /**
+     * Set image
+     *
+     * @param string $image
+     *
+     * @return Product
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

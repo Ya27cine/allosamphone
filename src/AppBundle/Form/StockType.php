@@ -5,8 +5,6 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-
 
 class StockType extends AbstractType
 {
@@ -15,11 +13,7 @@ class StockType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('quantity')->add('price')->add('title')->add('value')->add('ref')
-        ->add('product', EntityType::class, array(
-                        'class' => 'AdminBundle:Product',
-                        'choice_label' => 'libelle',
-                        'expanded' => false));
+        $builder->add('quantity')->add('price')->add('title')->add('value')->add('ref')->add('img1')->add('img2')->add('img3')->add('img4')->add('product');
     }/**
      * {@inheritdoc}
      */

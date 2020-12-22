@@ -8,6 +8,8 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    upload_directory: '%kernel.root_dir%/../web/uploads/products'
+    upload_directory_varient: '%kernel.root_dir%/../web/uploads/varient'
 
 framework:
     esi: ~

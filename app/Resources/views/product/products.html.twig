@@ -13,9 +13,9 @@
             <tr>
                 <th>Id</th>
                 <th>Marque</th>
-                <th>Category</th>
-                <th>Modele</th>
-                <th>Libelle</th>
+              <!--  <th>Category</th> -->
+                <th style="width: 30%">Modele</th>
+                <th >Libelle</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -25,13 +25,24 @@
                 <td><a href="{{ path('product_show', { 'id': product.id }) }}">{{ product.id }}</a></td>
                 <td>{{ product.marque.name }}</td>
                <!--  <td>{{ product.category.name }}</td>-->
-                <td>{{ product.modele }}</td>
-                <td>{{ product.libelle }}</td>
                 <td>
-                    <ul>                
-                            <a class="btn btn-danger" href="{{ path('stock_index', { 'id_prod': product.id, 'libelle': product.libelle }) }}">STOCK</a>   
-                             <a class="btn btn-info" href="{{ path('product_show', { 'id': product.id }) }}">show</a>              
-                            <a class="btn btn-warning" href="{{ path('product_edit', { 'id': product.id }) }}">edit</a>
+                  <img src="{{ asset('uploads/products/'~ product.image ) }}" alt="null" width="30%" height="10%">
+                  {{ product.modele }}
+                </td>
+                <td>
+                    {{ product.libelle }}
+                </td>
+                <td>
+                    <ul class="inline">                
+                            <a class="btn btn-danger " href="{{ path('stock_index', { 'id_prod': product.id, 'libelle': product.libelle }) }}"> 
+                                <i class="fas fa-database"></i>
+                             </a>   
+                             <a class="btn btn-info" href="{{ path('product_show', { 'id': product.id }) }}">
+                                  <i class="fas fa-eye"></i>
+                             </a>              
+                            <a class="btn btn-warning" href="{{ path('product_edit', { 'id': product.id }) }}">
+                                 <i class="fas fa-edit"></i>
+                            </a>
                         
                     </ul>
                 </td>

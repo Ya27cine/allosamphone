@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 
 class ProductType extends AbstractType
@@ -24,7 +25,8 @@ class ProductType extends AbstractType
                         'choice_label' => 'name',
                         'expanded' => false))
                 ->add('modele')
-                ->add('libelle');
+                ->add('libelle')
+                ->add('image', FileType::class , array('label'=>'image png ou jpeg', 'data_class' => null, 'required'=>false));
     }/**
      * {@inheritdoc}
      */

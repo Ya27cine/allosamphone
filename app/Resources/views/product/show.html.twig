@@ -1,44 +1,55 @@
 {% extends 'admin.html.twig' %}
 
+
 {% block body %}
     <h1>Product</h1>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ product.id }}</td>
-            </tr>
-            <tr>
-                <th>Marque</th>
-                <td>{{ product.marque.name }}</td>
-            </tr>
-            <tr>
-                <th>Category</th>
-                <td>{{ product.category.name }}</td>
-            </tr>
-            <tr>
-                <th>Modele</th>
-                <td>{{ product.modele }}</td>
-            </tr>
-            <tr>
-                <th>Libelle</th>
-                <td>{{ product.libelle }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                 <table>
+                        <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <td>{{ product.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Marque</th>
+                                <td>{{ product.marque.name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Category</th>
+                                <td>{{ product.category.name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Modele</th>
+                                <td>{{ product.modele }}</td>
+                            </tr>
+                            <tr>
+                                <th>Libelle</th>
+                                <td>{{ product.libelle }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('product_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('product_edit', { 'id': product.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+                    <ul>
+                        <li>
+                            <a href="{{ path('product_index') }}">Back to the list</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('product_edit', { 'id': product.id }) }}">Edit</a>
+                        </li>
+                        <li>
+                            {{ form_start(delete_form) }}
+                                <input type="submit" value="Delete">
+                            {{ form_end(delete_form) }}
+                        </li>
+                    </ul>
+            </div>
+            <div class="col-md-6 my-1">
+                     <img src="{{ asset('uploads/products/'~ product.image ) }}" alt="Placeholder image" width="80%" height="80%">
+            </div>
+        </div>
+    </div>
+   
 {% endblock %}

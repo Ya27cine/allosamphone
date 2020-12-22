@@ -3,9 +3,11 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Stock;
+use AdminBundle\Entity\Image;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Stock controller.
@@ -42,23 +44,26 @@ class StockController extends Controller
      */
     public function newAction(Request $request, $id_prod)
     {
-        
         // get product 
          $produit = $this->getDoctrine()->getManager()->getRepository('AdminBundle:Product')->find($id_prod);
+ 
 
         $stock = new Stock();
         $form = $this->createForm('AppBundle\Form\StockType', $stock);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() ) {
+        
             $em = $this->getDoctrine()->getManager();
-            $em->persist($stock);
-            $stock->setProduct( $produit );//select product auto.
+            $em->persist($stock);  
+            $em->flush();
+            $stock->setProduct( $produit );//select product auto.   
+
+
             $em->flush();
 
             return $this->redirectToRoute('stock_show', array('id' => $stock->getId()));
         }
-
        
         return $this->render('stock/new.html.twig', array(
             'stock' => $stock,
