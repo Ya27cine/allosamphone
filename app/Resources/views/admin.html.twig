@@ -65,10 +65,14 @@
           <div class="row">
             <div class="col-md-3 my-5">
                 <div class="list-group" id="list-tab" role="tablist">
-                  <a class="list-group-item list-group-item-action active" id="list-home-list"  href="{{path('product_index')}}" role="tab" >Products</a>
-                  <a class="list-group-item list-group-item-action" id="list-messages-list"  href="{{path('category_index')}}" role="tab" >Categories</a>
-                  <a class="list-group-item list-group-item-action" id="list-settings-list"  href="{{path('marque_index')}}" role="tab" >Marques</a>
-                  <a class="list-group-item list-group-item-action" id="list-profile-list"  href="{{path('product_index')}}" role="tab" >Variants</a>
+                  <a class="list-group-item list-group-item-action {{ app.request.get('_route') == 'product_index' ? 'active' }} " id="list-home-list"  href="{{path('product_index')}}" role="tab" >
+                  Products</a>
+                  <a class="list-group-item list-group-item-action {{ app.request.get('_route') == 'category_index' ? 'active' }} " id="list-messages-list"  href="{{path('category_index')}}" role="tab"  >
+                  Categories</a>
+                  <a class="list-group-item list-group-item-action {{ app.request.get('_route') == 'marque_index' ? 'active' }} " id="list-settings-list"  href="{{path('marque_index')}}" role="tab" >
+                  Marques</a>
+                  <a class="list-group-item list-group-item-action {{ app.request.get('_route') == 'product_index' ? 'active' }} " id="list-profile-list"  href="{{path('product_index')}}" role="tab" >
+                  Variants</a>
 
                 </div>
             </div>

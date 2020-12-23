@@ -6,13 +6,21 @@
 
 
     <div class="container">
-        <div class="row my-3">
+         <div class="row">
             {% for category in  categories %}
-                 <div class="card" style="width: 20%;">
-                      <img class="card-img-top" src="{{asset('front/images/products.png')}}" alt="Card image cap">
+               <div class="col-md-3 d-flex my-1" >
+                  <div class="card" style="width: 95%;">
+
+                                {% if category.image == null %}
+                                           <img class="card-img h-100" src="{{asset('images/categories/default.jpg')}}" alt="Card image cap">
+                                {% else %}
+                                          <img class="card-img h-100" src="{{ asset('images/categories/'~ category.image ) }}" alt="Card image cap" width="10%">
+                                {% endif %}
+
                       <div class="card-body">
                         <p class="card-text"> <a href="{{ path('product_by_category', { 'id': category.id }) }}"> {{  category.name }} </a></p>
                       </div>
+                </div>
                 </div>
             {% endfor %}
 
