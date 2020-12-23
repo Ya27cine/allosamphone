@@ -45,6 +45,13 @@ class MarqueController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $file = $marque->getImage();
+            $fileName = md5( uniqid() ).'.'.$file->guessExtension();
+            $file->move($this->getParameter('upload_directory_marque'), $fileName);
+
+            $marque->setImage( $fileName );
+
             $em->persist($marque);
             $em->flush();
 
@@ -81,11 +88,22 @@ class MarqueController extends Controller
      */
     public function editAction(Request $request, Marque $marque)
     {
+         $old_img = $marque->getImage();
+
         $deleteForm = $this->createDeleteForm($marque);
         $editForm = $this->createForm('AdminBundle\Form\MarqueType', $marque);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            if ( $marque->getImage() == null) {
+                 $marque->setImage( $old_img );
+             }else{
+                $file = $marque->getImage();
+                $fileName = md5( uniqid() ).'.'.$file->guessExtension();
+                $file->move($this->getParameter('upload_directory_marque'), $fileName);
+                $marque->setImage( $fileName );
+             }
+             
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('marque_edit', array('id' => $marque->getId()));

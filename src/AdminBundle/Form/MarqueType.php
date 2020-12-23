@@ -5,6 +5,8 @@ namespace AdminBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+
 
 class MarqueType extends AbstractType
 {
@@ -13,7 +15,8 @@ class MarqueType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')->add('createdAt');
+        $builder->add('name')->add('createdAt')
+         ->add('image', FileType::class , array('label'=>'image png ou jpeg', 'data_class' => null, 'required'=>false));
     }/**
      * {@inheritdoc}
      */

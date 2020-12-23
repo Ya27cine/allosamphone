@@ -9,6 +9,7 @@ imports:
 parameters:
     locale: en
     upload_directory: '%kernel.root_dir%/../web/uploads/products'
+    upload_directory_marque: '%kernel.root_dir%/../web/uploads/marques'
     upload_directory_varient: '%kernel.root_dir%/../web/uploads/varient'
 
 framework:

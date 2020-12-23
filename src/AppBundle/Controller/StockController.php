@@ -55,11 +55,26 @@ class StockController extends Controller
         if ($form->isSubmitted() && $form->isValid() ) {
         
             $em = $this->getDoctrine()->getManager();
+
+                $file = $stock->getImg1();
+                $fileName = md5( uniqid() ).'.'.$file->guessExtension();
+                $file->move($this->getParameter('upload_directory_varient'), $fileName);
+
+                $stock->setImg1( $fileName );
+
             $em->persist($stock);  
-            $em->flush();
             $stock->setProduct( $produit );//select product auto.   
 
+           /* $images = [$stock->getImg1(), $stock->getImg2(), $stock->getImg3(), $stock->getImg4()];
+            foreach ($images  as  $img) {
+                $file = $img;
+                $fileName = md5( uniqid() ).'.'.$file->guessExtension();
+                $file->move($this->getParameter('upload_directory_varient'), $fileName);
 
+                $stock->setImage( $fileName );
+            }*/
+
+          
             $em->flush();
 
             return $this->redirectToRoute('stock_show', array('id' => $stock->getId()));

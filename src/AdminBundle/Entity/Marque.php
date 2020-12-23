@@ -3,6 +3,8 @@
 namespace AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Marque
@@ -34,6 +36,14 @@ class Marque
      * @ORM\Column(name="created_at", type="datetime")
      */
     private $createdAt;
+
+    /**
+     *
+     * @ORM\Column(name="image")
+     * @Assert\NotBlank(groups={"new"}, message="Merci de mettre une image !")
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg"})
+     */
+    private $image;
 
 
     /**
@@ -92,5 +102,29 @@ class Marque
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    /**
+     * Set image
+     *
+     * @param string $image
+     *
+     * @return Marque
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }
