@@ -21,6 +21,35 @@ class DefaultController extends Controller
         ]);
     }
 
+     /**
+     * @Route("/p", name="p_page")
+     */
+    public function pAction(Request $request)
+    {
+        // replace this example code with whatever you need
+        return $this->render('default/pages/product.html.twig');
+    }
+
+
+     /**
+     * @Route("/ch", name="ch_page")
+     */
+    public function chAction(Request $request)
+    {
+        // replace this example code with whatever you need
+        return $this->render('default/pages/checkout.html.twig');
+    }
+
+    
+    /**
+     * @Route("/store", name="store_page")
+     */
+    public function storeAction(Request $request)
+    {
+        // replace this example code with whatever you need
+        return $this->render('default/pages/store.html.twig');
+    }
+
 
     /**
      * @Route("/admin", name="adminpage")

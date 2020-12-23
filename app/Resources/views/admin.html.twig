@@ -61,26 +61,31 @@
 </nav>
 
 
-        <div class="container">
-          <div class="row">
-            <div class="col-md-3 my-5">
-                <div class="list-group" id="list-tab" role="tablist">
-                  <a class="list-group-item list-group-item-action {{ app.request.get('_route') == 'product_index' ? 'active' }} " id="list-home-list"  href="{{path('product_index')}}" role="tab" >
-                  Products</a>
-                  <a class="list-group-item list-group-item-action {{ app.request.get('_route') == 'category_index' ? 'active' }} " id="list-messages-list"  href="{{path('category_index')}}" role="tab"  >
-                  Categories</a>
-                  <a class="list-group-item list-group-item-action {{ app.request.get('_route') == 'marque_index' ? 'active' }} " id="list-settings-list"  href="{{path('marque_index')}}" role="tab" >
-                  Marques</a>
-                  <a class="list-group-item list-group-item-action {{ app.request.get('_route') == 'product_index' ? 'active' }} " id="list-profile-list"  href="{{path('product_index')}}" role="tab" >
-                  Variants</a>
+    
+          <div class="row" style="padding-left: 5%">
+            <div class="col-md-2 my-5">
+                  <div class="list-group" id="list-tab" role="tablist">
+                    <a class="list-group-item list-group-item-action {{ app.request.get('_route') == 'product_index' ? 'active' }} " id="list-home-list"  href="{{path('product_index')}}" role="tab" >
+                    Products</a>
+                    <a class="list-group-item list-group-item-action {{ app.request.get('_route') == 'category_index' ? 'active' }} " id="list-messages-list"  href="{{path('category_index')}}" role="tab"  >
+                    Categories</a>
+                    <a class="list-group-item list-group-item-action {{ app.request.get('_route') == 'marque_index' ? 'active' }} " id="list-settings-list"  href="{{path('marque_index')}}" role="tab" >
+                    Marques</a>
 
-                </div>
+                    <!--
+                    <a class="list-group-item list-group-item-action {{ app.request.get('_route') == 'product_index' ? 'active' }} " id="list-profile-list"  href="{{path('product_index')}}" role="tab" >
+                    Variants</a> -->
+                  </div>
+           
+               
+
+
             </div>
             <div class="col-md-9 my-2" style="border: 1px solid black">
                {% block body %}{% endblock %}
             </div>
           </div>
-        </div>
+       
        
 
         {% block javascripts %}{% endblock %}
