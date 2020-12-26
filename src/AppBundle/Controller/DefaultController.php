@@ -21,7 +21,7 @@ class DefaultController extends Controller
 
        
         // replace this example code with whatever you need
-        return $this->render('default/pages/home.html.twig', [
+        return $this->render('@App/pages/home.html.twig', [
             'categories' => $categories,
          
         ]);
@@ -33,7 +33,7 @@ class DefaultController extends Controller
     public function pAction(Request $request)
     {
         // replace this example code with whatever you need
-        return $this->render('default/pages/product.html.twig');
+        return $this->render('@App/pages/product.html.twig');
     }
 
 
@@ -43,7 +43,7 @@ class DefaultController extends Controller
     public function chAction(Request $request)
     {
         // replace this example code with whatever you need
-        return $this->render('default/pages/checkout.html.twig');
+        return $this->render('@App/pages/checkout.html.twig');
     }
 
     
@@ -53,7 +53,7 @@ class DefaultController extends Controller
     public function storeAction(Request $request)
     {
         // replace this example code with whatever you need
-        return $this->render('default/pages/store.html.twig');
+        return $this->render('@App/pages/store.html.twig');
     }
 
 
@@ -66,24 +66,22 @@ class DefaultController extends Controller
         return $this->render('default/admin.html.twig');
     }
 
-
-
-       /**
+    /**
      * @Route("/sma", name="smartphone_page")
      */
     public function pdAction(Request $request)
     {
         // replace this example code with whatever you need
-        return $this->render('default/pages/store.html.twig');
+        return $this->render('@App/pages/store.html.twig');
     }
 
-       /**
+    /**
      * @Route("/pgfrr", name="accessories_page")
      */
     public function pfdefrAction(Request $request)
     {
         // replace this example code with whatever you need
-        return $this->render('default/pages/product.html.twig');
+        return $this->render('@App/pages/product.html.twig');
     }
 
        /**
@@ -92,7 +90,7 @@ class DefaultController extends Controller
     public function prewtAction(Request $request)
     {
          
-         return $this->render('default/pages/test.html.twig');
+         return $this->render('@App/pages/test.html.twig');
     }
 
 

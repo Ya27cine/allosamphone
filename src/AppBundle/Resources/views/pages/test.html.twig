@@ -1,0 +1,28 @@
+
+<h1>page test </h1>
+<input type="checkbox" onchange='sayHello({{5}}, $(this))' >
+<div id="data"></div>
+
+<script type="text/javascript" src="{{ asset('front/jquery.js') }}" ></script>
+<script type="text/javascript">
+
+	function sayHello(id, ob)
+{
+
+	console.log(' exe ', id)
+	
+           $.ajax({
+				    method: "post",
+				    url: '{{ path('test_page') }}',
+				   
+				}).done( (response) => {
+				    console.log(response.position)
+				    let data  = response.name + ', age '+ response.age;
+				    $('#data').text(data);
+				}).fail( (jxh,textmsg,errorThrown) => {
+				    console.log(textmsg);
+				    console.log(errorThrown);
+				});
+        
+}
+</script>
