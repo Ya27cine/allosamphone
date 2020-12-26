@@ -74,13 +74,14 @@ class ProductController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
+            if($product->getImage() != null){
+                $file = $product->getImage();
+                $fileName = md5( uniqid() ).'.'.$file->guessExtension();
+                $file->move($this->getParameter('upload_directory'), $fileName);
+                $product->setImage( $fileName );
+            }
 
-            $file = $product->getImage();
-            $fileName = md5( uniqid() ).'.'.$file->guessExtension();
-            $file->move($this->getParameter('upload_directory'), $fileName);
-
-            $product->setImage( $fileName );
-
+        
      
             $em->persist($product);
             $em->flush();
@@ -145,6 +146,7 @@ class ProductController extends Controller
             'product' => $product,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+             'old_img' => $old_img,[]
         ));
     }
 
