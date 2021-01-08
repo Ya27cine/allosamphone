@@ -57,6 +57,16 @@ class Product
 
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", options={"default": 0})
+     */
+    private $createdAt;
+
+
+
+
+    /**
      * Get id
      *
      * @return int
@@ -227,5 +237,29 @@ class Product
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Product
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
     }
 }
