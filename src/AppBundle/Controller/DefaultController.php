@@ -16,14 +16,26 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
+        // get id catagory_smartphone
+         $ctg_phone  = $this->container->getParameter('smartphone_et_tablette');
+
          $em = $this->getDoctrine()->getManager();
          $categories = $em->getRepository("AdminBundle:Category")->findAll();
 
+         // get last 5 products / accessories
+         $new_products_access = $em->createQuery(
+                'SELECT p FROM AdminBundle:Product p WHERE p.category <> '.$ctg_phone.'
+                ORDER BY p.createdAt DESC')->setMaxResults(5)->getResult();
+         // get last 5 products / smartphones
+         $new_products_smartphones = $em->createQuery(
+                'SELECT p FROM AdminBundle:Product p WHERE p.category = '.$ctg_phone.'
+                ORDER BY p.createdAt DESC')->setMaxResults(5)->getResult();
        
         // replace this example code with whatever you need
         return $this->render('@App/pages/home.html.twig', [
             'categories' => $categories,
-         
+            'new_products_access' => $new_products_access,
+            'new_products_smartphones' => $new_products_smartphones,
         ]);
     }
 

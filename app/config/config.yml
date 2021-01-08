@@ -11,6 +11,7 @@ parameters:
     upload_directory: '%kernel.root_dir%/../web/uploads/products'
     upload_directory_marque: '%kernel.root_dir%/../web/uploads/marques'
     upload_directory_varient: '%kernel.root_dir%/../web/uploads/varient'
+    smartphone_et_tablette: 12
 
 framework:
     esi: ~
