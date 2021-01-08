@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 define('Category_Smartphone_et_tablette', 12);
 
 
+
 class StoreController extends Controller
 {
 
@@ -42,8 +43,15 @@ class StoreController extends Controller
         
         $em = $this->getDoctrine()->getManager();
         $marques  = $em->getRepository('AdminBundle:Marque')->findAll();
+
+        // get access :
+        $access = $em->createQuery("select p FROM AdminBundle:Product p where p.category <> :category")
+                      ->setParameter("category", Category_Smartphone_et_tablette);
+
+
         return $this->render('@App/Store/accessories.html.twig', array(
             'marques' => $marques,
+            'access' => $access->getResult(),
 
         ));
     }
@@ -53,10 +61,24 @@ class StoreController extends Controller
      */
     public function repairAction()
     {
+        $em = $this->getDoctrine()->getManager();
+        $marques  = $em->getRepository('AdminBundle:Marque')->findAll();
+
         return $this->render('@App/Store/repair.html.twig', array(
-            // ...
+            'marques' => $marques,
         ));
     }
+
+
+
+
+
+
+
+
+
+
+
 
 
      /**
