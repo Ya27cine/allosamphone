@@ -34,12 +34,30 @@ class Stock
      */
     private $quantity;
 
+    
+
     /**
      * @var string
      *
      * @ORM\Column(name="price", type="decimal", precision=4, scale=0)
      */
     private $price;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="promo", type="integer")
+     */
+    private $promo;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="sold", type="integer")
+     */
+    private $sold;
+
+
 
     /**
      * @var string
@@ -89,6 +107,14 @@ class Stock
      * @ORM\Column(name="img4", type="string", length=255)
      */
     private $img4;
+
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", options={"default": 0})
+     */
+    private $createdAt;
 
 
    
@@ -383,5 +409,77 @@ class Stock
     public function getImg4()
     {
         return $this->img4;
+    }
+
+    /**
+     * Set promo
+     *
+     * @param integer $promo
+     *
+     * @return Stock
+     */
+    public function setPromo($promo)
+    {
+        $this->promo = $promo;
+
+        return $this;
+    }
+
+    /**
+     * Get promo
+     *
+     * @return integer
+     */
+    public function getPromo()
+    {
+        return $this->promo;
+    }
+
+    /**
+     * Set sold
+     *
+     * @param integer $sold
+     *
+     * @return Stock
+     */
+    public function setSold($sold)
+    {
+        $this->sold = $sold;
+
+        return $this;
+    }
+
+    /**
+     * Get sold
+     *
+     * @return integer
+     */
+    public function getSold()
+    {
+        return $this->sold;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Stock
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
     }
 }

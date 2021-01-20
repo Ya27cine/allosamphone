@@ -74,13 +74,6 @@ class StoreController extends Controller
 
 
 
-
-
-
-
-
-
-
      /**
      * @Route("/store/detail/{id_product}", name="store_detail_page")
      */
@@ -91,10 +84,14 @@ class StoreController extends Controller
             'product' => $id_product,
         ]);
 
-        return $this->render('@App/pages/product.html.twig', array(
-            'id' => $id_product,
-            'varient' => $varients[0],
-        ));
+
+        if($varients!=null)
+            return $this->render('@App/pages/product.html.twig', array(
+                'id' => $id_product,
+                'varient' => $varients[0]                           ,
+            ));
+        else
+            return $this->render('@App/pages/page404.html.twig');
     }
 
 }

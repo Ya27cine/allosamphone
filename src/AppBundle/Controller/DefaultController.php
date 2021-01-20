@@ -7,7 +7,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
+use AppBundle\Repository\StockRepository;
+use AdminBundle\Entity\Product;
 
 class DefaultController extends Controller
 {
@@ -20,44 +21,39 @@ class DefaultController extends Controller
          $ctg_phone  = $this->container->getParameter('smartphone_et_tablette');
 
          $em = $this->getDoctrine()->getManager();
+
+         // get All categories :
          $categories = $em->getRepository("AdminBundle:Category")->findAll();
 
          // get last 5 products / accessories
-         $new_products_access = $em->createQuery(
-                'SELECT p FROM AdminBundle:Product p WHERE p.category <> '.$ctg_phone.'
-                ORDER BY p.createdAt DESC')->setMaxResults(5)->getResult();
+         $new_products_access = 
+                        $this->getLastProdcutAcce($em, $ctg_phone, 5);
+        
          // get last 5 products / smartphones
-         $new_products_smartphones = $em->createQuery(
-                'SELECT p FROM AdminBundle:Product p WHERE p.category = '.$ctg_phone.'
-                ORDER BY p.createdAt DESC')->setMaxResults(5)->getResult();
+         $new_products_smartphones = 
+                        $this->getLastProdcut($em, $ctg_phone , 5);
+
+
+        // get last 5 products / smartphones
+         $top_sell_products_acc = 
+                        $this->getTpoSellingAcc($em, $ctg_phone , 5);
+
+         // get last 5 products / smartphones
+         $top_sell_products_smartphones = 
+                        $this->getTpoSelling($em, $ctg_phone , 5);
        
         // replace this example code with whatever you need
         return $this->render('@App/pages/home.html.twig', [
             'categories' => $categories,
             'new_products_access' => $new_products_access,
             'new_products_smartphones' => $new_products_smartphones,
+            'top_sell_products_smartphones' => $top_sell_products_smartphones,
+            'top_sell_products_acc' => $top_sell_products_acc,
         ]);
     }
 
-     /**
-     * @Route("/p", name="p_page")
-     */
-    public function pAction(Request $request)
-    {
-        // replace this example code with whatever you need
-        return $this->render('@App/pages/product.html.twig');
-    }
-
-
-     /**
-     * @Route("/ch", name="ch_page")
-     */
-    public function chAction(Request $request)
-    {
-        // replace this example code with whatever you need
-        return $this->render('@App/pages/checkout.html.twig');
-    }
-
+    
+   
     
     /**
      * @Route("/store", name="store_page")
@@ -78,34 +74,6 @@ class DefaultController extends Controller
         return $this->render('default/admin.html.twig');
     }
 
-    /**
-     * @Route("/sma", name="smartphone_page")
-     */
-    public function pdAction(Request $request)
-    {
-        // replace this example code with whatever you need
-        return $this->render('@App/pages/store.html.twig');
-    }
-
-    /**
-     * @Route("/pgfrr", name="accessories_page")
-     */
-    public function pfdefrAction(Request $request)
-    {
-        // replace this example code with whatever you need
-        return $this->render('@App/pages/product.html.twig');
-    }
-
-       /**
-     * @Route("/prtr", name="repair_page")
-     */
-    public function prewtAction(Request $request)
-    {
-         
-         return $this->render('@App/pages/test.html.twig');
-    }
-
-
      /**
      * @Route("/test", name="test_page")
      * @Method( "POST")
@@ -124,6 +92,55 @@ class DefaultController extends Controller
          }
         return new JsonResponse($arrayAjax);
        }
+
+
+
+    /**
+    * ===>  Methods
+    *
+    */
+
+    // get last 5 products / samrtphone
+    private function getLastProdcut($em, $category, $max){
+        
+        return  $em->createQuery(
+                   'SELECT varient FROM AppBundle:Stock varient, AdminBundle:Product p  
+                    WHERE varient.product = p.id and  p.category = '.$category.'
+                        ORDER BY varient.createdAt DESC')
+        ->setMaxResults($max)->getResult();
+    }
+
+    // get last 5 products / expet samrtphone
+    private function getLastProdcutAcce($em, $category, $max){
+        
+        return  $em->createQuery(
+                   'SELECT varient FROM AppBundle:Stock varient, AdminBundle:Product p  
+                    WHERE varient.product = p.id and  p.category <> '.$category.'
+                        ORDER BY varient.createdAt DESC')
+        ->setMaxResults($max)->getResult();
+    }
+
+
+    // get top selling 5 products / expet samrtphone
+    private function getTpoSellingAcc($em, $category, $max){
+        
+        return  $em->createQuery(
+                   'SELECT varient FROM AppBundle:Stock varient, AdminBundle:Product p  
+                    WHERE varient.product = p.id and  p.category <> '.$category.'
+                        ORDER BY varient.sold DESC')
+        ->setMaxResults($max)->getResult();
+    }
+
+
+    // get top selling 5 products / samrtphone
+    private function getTpoSelling($em, $category, $max){
+        
+        return  $em->createQuery(
+                   'SELECT varient FROM AppBundle:Stock varient, AdminBundle:Product p  
+                    WHERE varient.product = p.id and  p.category = '.$category.'
+                        ORDER BY varient.sold DESC')
+        ->setMaxResults($max)->getResult();
+    }
 
 }
 
