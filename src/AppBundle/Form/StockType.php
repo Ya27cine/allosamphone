@@ -16,7 +16,11 @@ class StockType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('quantity')->add('price')->add('title')->add('value')->add('ref')->add('img1', FileType::class)->add('img2')->add('img3')->add('img4')
+        $builder->add('quantity')->add('price')->add('title')->add('value')->add('ref')
+        ->add('img1', FileType::class, array('label'=>'image png ou jpeg', 'data_class' => null))
+        ->add('img2', FileType::class, array('label'=>'image png ou jpeg', 'data_class' => null))
+        ->add('img3', FileType::class, array('label'=>'image png ou jpeg', 'data_class' => null))
+        ->add('img4', FileType::class, array('label'=>'image png ou jpeg', 'data_class' => null))
          ->add('product', EntityType::class, array(
                         'class' => 'AdminBundle:Product',
                         'choice_label' => 'libelle',

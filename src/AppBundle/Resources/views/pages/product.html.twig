@@ -1,6 +1,23 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+		<!-- BREADCRUMB -->
+		<div id="breadcrumb" class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<div class="col-md-12">
+						<ul class="breadcrumb-tree">
+							<li><a href="{{path('homepage')}}">Accueil</a></li>
+							<li class="active">Phone (227,490 Results)</li>
+						</ul>
+					</div>
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
 		<!-- /BREADCRUMB -->
 
 		<!-- SECTION -->
@@ -13,7 +30,7 @@
 					<div class="col-md-5 col-md-push-2">
 						<div id="product-main-img">
 							<div class="product-preview">
-								<img src="{{ asset('front/img/product01.png') }}" alt="">
+								<img src="{{asset('uploads/products/' ~ varient.product.image )}}" alt="">
 							</div>
 
 							<div class="product-preview">
@@ -35,7 +52,7 @@
 					<div class="col-md-2  col-md-pull-5">
 						<div id="product-imgs">
 							<div class="product-preview">
-								<img src="{{ asset('front/img/product01.png') }}" alt="">
+								<img src="{{asset('uploads/products/' ~ varient.product.image )}}" alt="">
 							</div>
 
 							<div class="product-preview">
@@ -56,7 +73,7 @@
 					<!-- Product details -->
 					<div class="col-md-5">
 						<div class="product-details">
-							<h2 class="product-name"> {{ varient.product.libelle }} </h2>
+							<h2 class="product-name"> {{ varient.product.marque.name }} {{varient.product.libelle}}</h2>
 							<div>
 								<div class="product-rating">
 									<i class="fa fa-star"></i>
@@ -68,8 +85,12 @@
 								<a class="review-link" href="#">10 Review(s) | Add your review</a>
 							</div>
 							<div>
-								<h3 class="product-price">{{ varient.price }} <del class="product-old-price">$990.00</del></h3>
-								<span class="product-available">In Stock</span>
+								<h3 class="product-price">{{ varient.price }} <del class="product-old-price">${{ varient.price +25 }}</del></h3>
+								{% if varient.quantity > 0 %}
+											<span class="product-available">In Stock</span>
+								{% else %}
+											<span class="product-no-available">no Stock</span>
+								{% endif %}
 							</div>
 							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 
@@ -77,13 +98,13 @@
 								<label>
 									Size
 									<select class="input-select">
-										<option value="0">X</option>
+										<option value="0">32g</option>
 									</select>
 								</label>
 								<label>
 									Color
 									<select class="input-select">
-										<option value="0">Red</option>
+										<option value="0">Blue</option>
 									</select>
 								</label>
 							</div>
@@ -97,12 +118,12 @@
 										<span class="qty-down">-</span>
 									</div>
 								</div>
-								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+								<button {% if varient.quantity > 0 %} class="add-to-cart-btn" {% else %} disabled {%endif%} >
+										<i class="fa fa-shopping-cart"></i> ajouter au chariot</button>
 							</div>
 
 							<ul class="product-btns">
-								<li><a href="#"><i class="fa fa-heart-o"></i> add to wishlist</a></li>
-								<li><a href="#"><i class="fa fa-exchange"></i> add to compare</a></li>
+								<li><a href="#"><i class="fa fa-heart-o"></i> ajouter au favori</a></li>
 							</ul>
 
 							<ul class="product-links">

@@ -83,28 +83,28 @@ class Stock
     /**
      * @var string
      *
-     * @ORM\Column(name="img1", type="string", length=255)
+     * @ORM\Column(name="img1", type="string", length=255, nullable=true)
      */
     private $img1;
 
      /**
      * @var string
      *
-     * @ORM\Column(name="img2", type="string", length=255)
+     * @ORM\Column(name="img2", type="string", length=255, nullable=true)
      */
     private $img2;
 
      /**
      * @var string
      *
-     * @ORM\Column(name="img3", type="string", length=255)
+     * @ORM\Column(name="img3", type="string", length=255, nullable=true)
      */
     private $img3;
 
      /**
      * @var string
      *
-     * @ORM\Column(name="img4", type="string", length=255)
+     * @ORM\Column(name="img4", type="string", length=255, nullable=true)
      */
     private $img4;
 
