@@ -1,7 +1,17 @@
 {% extends 'admin.html.twig' %}
 
+{% block BREADCRUMB %}
+
+<!-- /BREADCRUMB -->
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{{path('product_index')}}">Product-by-Category</a></li>
+      <li class="breadcrumb-item active">{{category}}</li>
+    </ol>
+  <!-- BREADCRUMB -->
+{% endblock %}
+
 {% block body %}
-    <h3> <a href="{{path('product_index')}}">Products</a>  [ {{category}} ]</h3>
+
 
     <div class="row my-2">
         <div class="col-md-3"><a  class="btn btn-primary my-1" href="{{ path('product_new') }}">Create a new product</a></div>
@@ -34,7 +44,7 @@
                 </td>
                 <td>
                     <ul class="inline">                
-                            <a class="btn btn-danger " href="{{ path('stock_index', { 'id_prod': product.id, 'libelle': product.libelle }) }}"> 
+                            <a class="btn btn-danger " href="{{ path('stock_index', { 'id_prod': product.id, 'libelle': product.libelle, 'category': category }) }}"> 
                                 <i class="fas fa-database"></i>
                              </a>   
                              <a class="btn btn-info" href="{{ path('product_show', { 'id': product.id }) }}">

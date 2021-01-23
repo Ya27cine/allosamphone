@@ -12,17 +12,17 @@ use Symfony\Component\HttpFoundation\File\File;
 /**
  * Stock controller.
  *
- * @Route("stock")
+ * @Route("admin/stock")
  */
 class StockController extends Controller
 {
     /**
      * Lists all stock entities.
      *
-     * @Route("/{id_prod}/variant/{libelle}", name="stock_index")
+     * @Route("/{id_prod}/variant/{libelle}/{category}", name="stock_index")
      * @Method("GET")
      */
-    public function indexAction($id_prod, $libelle)
+    public function indexAction($id_prod, $libelle, $category)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -32,17 +32,18 @@ class StockController extends Controller
         return $this->render('stock/index.html.twig', array(
             'stocks' => $stocks->getResult(),
             'id_prod' => $id_prod,
-            'libelle' => $libelle
+            'libelle' => $libelle,
+            'category' => $category
         ));
     }
 
     /**
      * Creates a new stock entity.
      *
-     * @Route("/{id_prod}/new", name="stock_new")
+     * @Route("/{id_prod}/new/{category}", name="stock_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request, $id_prod)
+    public function newAction(Request $request, $id_prod, $category)
     {
         // get product 
          $produit = $this->getDoctrine()->getManager()->getRepository('AdminBundle:Product')->find($id_prod);
@@ -84,6 +85,7 @@ class StockController extends Controller
             'stock' => $stock,
             'form' => $form->createView(),
             'produit' => $produit->getLibelle(),
+            'category' => $category
         ));
     }
 

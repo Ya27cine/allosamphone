@@ -59,8 +59,8 @@
 
   </div>
 </nav>
-
-
+          
+          {% block BREADCRUMB %}{% endblock %}
     
           <div class="row" style="padding-left: 5%">
             <div class="col-md-2 my-5">
@@ -81,7 +81,7 @@
 
 
             </div>
-            <div class="col-md-9 my-2" style="border: 1px solid black">
+            <div class="col-md-9 my-2" >
                {% block body %}{% endblock %}
             </div>
           </div>

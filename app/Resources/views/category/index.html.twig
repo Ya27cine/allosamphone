@@ -12,12 +12,12 @@
         <div class="row">
             {%  for category in categories %}
                         <div class="col-md-3 d-flex my-1" >
-                                <div class="card" style="width: 95%;">
+                                <div class="card" style="width: 98%;">
 
                                 {% if category.image == null %}
-                                           <img class="product-img" src="{{asset('images/categories/default.jpg')}}" alt="Card image cap">
+                                           <img class="card-img h-80" src="{{asset('images/categories/default.jpg')}}" alt="Card image cap">
                                 {% else %}
-                                          <img class="product-img" src="{{ asset('images/categories/'~ category.image ) }}" alt="Card image cap" width="10%">
+                                          <img class="card-img h-80" src="{{ asset('images/categories/'~ category.image ) }}" alt="Card image cap" width="20%">
                                 {% endif %}
 
                                       <div class="card-body">
