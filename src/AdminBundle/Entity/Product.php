@@ -27,10 +27,15 @@ class Product
     */
     private $marque;
 
-     /**
+    /**
     * @ORM\ManyToOne(targetEntity=Category::class)
     */
     private $category;
+
+    /**
+    * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="products", cascade={"persist"})
+    */
+    private $tags;
 
     /**
      *
@@ -261,5 +266,53 @@ class Product
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    /**
+     * Set tags
+     *
+     * @param \AdminBundle\Entity\Tag $tags
+     *
+     * @return Product
+     */
+    public function setTags(\AdminBundle\Entity\Tag $tags = null)
+    {
+        $this->tags = $tags;
+
+        return $this;
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \AdminBundle\Entity\Tag
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Add tag
+     *
+     * @param \AdminBundle\Entity\Tag $tag
+     *
+     * @return Product
+     */
+    public function addTag(\AdminBundle\Entity\Tag $tag)
+    {
+        $this->tags[] = $tag;
+
+        return $this;
+    }
+
+    /**
+     * Remove tag
+     *
+     * @param \AdminBundle\Entity\Tag $tag
+     */
+    public function removeTag(\AdminBundle\Entity\Tag $tag)
+    {
+        $this->tags->removeElement($tag);
     }
 }

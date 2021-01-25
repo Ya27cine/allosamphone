@@ -1,3 +1,7 @@
+admin_tag:
+    resource: "@AdminBundle/Controller/TagController.php"
+    type:     annotation
+
 app_stock:
     resource: "@AppBundle/Controller/StockController.php"
     type:     annotation
