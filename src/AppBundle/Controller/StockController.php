@@ -60,9 +60,25 @@ class StockController extends Controller
                 $file = $stock->getImg1();
                 $fileName = md5( uniqid() ).'.'.$file->guessExtension();
                 $file->move($this->getParameter('upload_directory_varient'), $fileName);
-
                 $stock->setImg1( $fileName );
 
+                $file2 = $stock->getImg2();
+                $fileName = md5( uniqid() ).'.'.$file2->guessExtension();
+                $file2->move($this->getParameter('upload_directory_varient'), $fileName);
+                $stock->setImg2( $fileName );
+
+                $file3 = $stock->getImg3();
+                $fileName = md5( uniqid() ).'.'.$file3->guessExtension();
+                $file3->move($this->getParameter('upload_directory_varient'), $fileName);
+                $stock->setImg3( $fileName );
+
+                $file4 = $stock->getImg4();
+                $fileName = md5( uniqid() ).'.'.$file4->guessExtension();
+                $file4->move($this->getParameter('upload_directory_varient'), $fileName);
+                $stock->setImg4( $fileName );
+
+
+            $stock->setCreatedAt( new \DateTime('now') );
             $em->persist($stock);  
             $stock->setProduct( $produit );//select product auto.   
 
@@ -113,15 +129,62 @@ class StockController extends Controller
      */
     public function editAction(Request $request, Stock $stock)
     {
+
+        // get phoots :
+        $photos = [1 => $stock->getImg1(), 2 => $stock->getImg2(), $stock->getImg3(), $stock->getImg4()];
+
         $deleteForm = $this->createDeleteForm($stock);
         $editForm = $this->createForm('AppBundle\Form\StockType', $stock);
         $editForm->handleRequest($request);
 
 
+
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+
+           /* $stock->getImgX() get new value the forms */
+
+             if ( $stock->getImg1() == null) {
+                     $stock->setImg1( $photos[1] );
+             }else{
+                $file = $stock->getImg1();
+                $fileName = md5( uniqid() ).'.'.$file->guessExtension();
+                $file->move($this->getParameter('upload_directory_varient'), $fileName);
+                $stock->setImg1( $fileName );
+             } 
+
+             if ( $stock->getImg2() == null) {
+                     $stock->setImg2( $photos[2] );
+             }else{
+                $file = $stock->getImg2();
+                $fileName = md5( uniqid() ).'.'.$file->guessExtension();
+                $file->move($this->getParameter('upload_directory_varient'), $fileName);
+                $stock->setImg2( $fileName );
+             } 
+
+             if ( $stock->getImg3() == null) {
+                     $stock->setImg3( $photos[3] );
+             }else{
+                $file = $stock->getImg3();
+                $fileName = md5( uniqid() ).'.'.$file->guessExtension();
+                $file->move($this->getParameter('upload_directory_varient'), $fileName);
+                $stock->setImg3( $fileName );
+             } 
+
+             if ( $stock->getImg4() == null) {
+                     $stock->setImg4( $photos[4] );
+             }else{
+                $file = $stock->getImg4();
+                $fileName = md5( uniqid() ).'.'.$file->guessExtension();
+                $file->move($this->getParameter('upload_directory_varient'), $fileName);
+                $stock->setImg4( $fileName );
+             } 
+            
+
+
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('stock_edit', array('id' => $stock->getId()));
+           // return $this->redirectToRoute('stock_edit', array('id' => $stock->getId()));
+             return $this->redirectToRoute('stock_show', array('id' => $stock->getId()));
         }
 
         return $this->render('stock/edit.html.twig', array(

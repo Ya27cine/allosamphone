@@ -79,6 +79,7 @@ class ProductController extends Controller
                 $fileName = md5( uniqid() ).'.'.$file->guessExtension();
                 $file->move($this->getParameter('upload_directory'), $fileName);
                 $product->setImage( $fileName );
+                $product->setCreatedAt( new \DateTime('now') );
             }
 
         
