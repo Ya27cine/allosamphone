@@ -291,4 +291,28 @@ class Product
     {
         return $this->tags;
     }
+
+    /**
+     * Add tag
+     *
+     * @param \AdminBundle\Entity\Tag $tag
+     *
+     * @return Product
+     */
+    public function addTag(\AdminBundle\Entity\Tag $tag)
+    {
+        $this->tags[] = $tag;
+
+        return $this;
+    }
+
+    /**
+     * Remove tag
+     *
+     * @param \AdminBundle\Entity\Tag $tag
+     */
+    public function removeTag(\AdminBundle\Entity\Tag $tag)
+    {
+        $this->tags->removeElement($tag);
+    }
 }

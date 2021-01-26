@@ -3,14 +3,16 @@
 namespace AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
- * Category
+ * Tag
  *
- * @ORM\Table(name="category")
- * @ORM\Entity(repositoryClass="AdminBundle\Repository\CategoryRepository")
+ * @ORM\Table(name="tag")
+ * @ORM\Entity(repositoryClass="AdminBundle\Repository\TagRepository")
  */
-class Category
+class Tag
 {
     /**
      * @var int
@@ -24,30 +26,22 @@ class Category
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=120)
+     * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
-    /**
+     /**
      * @var string
      *
-     * @ORM\Column(name="image", type="string", length=255)
+     * @ORM\Column(name="libelle", type="string", length=255)
      */
-    private $image;
-
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="created_at", type="datetime")
-     */
-    private $createdAt;
+    private $libelle;
 
     /**
-     * @ORM\OneToMany(targetEntity=Product::class,  mappedBy="category")
-     */
+      *@ORM\ManyToMany(targetEntity=Tag::class, mappedBy="tags")
+      *
+      */
     private $products;
-
 
 
     /**
@@ -65,7 +59,7 @@ class Category
      *
      * @param string $name
      *
-     * @return Category
+     * @return Tag
      */
     public function setName($name)
     {
@@ -83,30 +77,6 @@ class Category
     {
         return $this->name;
     }
-
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return Category
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
     /**
      * Constructor
      */
@@ -118,11 +88,11 @@ class Category
     /**
      * Add product
      *
-     * @param \AdminBundle\Entity\Product $product
+     * @param \AdminBundle\Entity\Tag $product
      *
-     * @return Category
+     * @return Tag
      */
-    public function addProduct(\AdminBundle\Entity\Product $product)
+    public function addProduct(\AdminBundle\Entity\Tag $product)
     {
         $this->products[] = $product;
 
@@ -132,9 +102,9 @@ class Category
     /**
      * Remove product
      *
-     * @param \AdminBundle\Entity\Product $product
+     * @param \AdminBundle\Entity\Tag $product
      */
-    public function removeProduct(\AdminBundle\Entity\Product $product)
+    public function removeProduct(\AdminBundle\Entity\Tag $product)
     {
         $this->products->removeElement($product);
     }
@@ -150,26 +120,26 @@ class Category
     }
 
     /**
-     * Set image
+     * Set libelle
      *
-     * @param string $image
+     * @param string $libelle
      *
-     * @return Category
+     * @return Tag
      */
-    public function setImage($image)
+    public function setLibelle($libelle)
     {
-        $this->image = $image;
+        $this->libelle = $libelle;
 
         return $this;
     }
 
     /**
-     * Get image
+     * Get libelle
      *
      * @return string
      */
-    public function getImage()
+    public function getLibelle()
     {
-        return $this->image;
+        return $this->libelle;
     }
 }

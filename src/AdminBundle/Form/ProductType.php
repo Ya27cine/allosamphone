@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-
+use AdminBundle\Entity\Tag;
 
 class ProductType extends AbstractType
 {
@@ -23,7 +23,13 @@ class ProductType extends AbstractType
                 ->add('category', EntityType::class, array(
                         'class' => 'AdminBundle:Category',
                         'choice_label' => 'name',
-                        'expanded' => false))
+                        'expanded' => false
+                        ))
+                 ->add('tags', EntityType::class, array(
+                        'class' => Tag::class,
+                        'expanded' => false,
+                         'choice_label' => 'name',
+                        'multiple' => true))
                 ->add('modele')
                 ->add('libelle')
                 ->add('image', FileType::class , array('label'=>'image png ou jpeg', 'data_class' => null, 'required'=>false));
