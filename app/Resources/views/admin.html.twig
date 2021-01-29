@@ -54,9 +54,6 @@
             </li>
         </ul>
       {% endif %}
-
-    
-
   </div>
 </nav>
           
@@ -79,16 +76,11 @@
                     <a class="list-group-item list-group-item-action {{ app.request.get('_route') == 'product_index' ? 'active' }} " id="list-profile-list"  href="{{path('product_index')}}" role="tab" >
                     Variants</a> -->
                   </div>
-           
-               
-
-
             </div>
             <div class="col-md-9 my-2" >
                {% block body %}{% endblock %}
             </div>
           </div>
-       
        
 
         {% block javascripts %}{% endblock %}
