@@ -146,7 +146,7 @@
                     {% for new_product in new_products_smartphones %}
                       <!-- product -->
                       <div class="product">
-                          <div class="product-img" >
+                          <div class="product-img"  >
                             <img src="{{asset('uploads/products/' ~ new_product.product.image )}}" alt="">
                             <div class="product-label">
                               {% if new_product.promo !=0  %}
@@ -649,6 +649,5 @@
         });
       }
     </script>
-    https://www.google.com/maps/place/134+Grande+Rue+Saint-Michel,+31400+Toulouse/@43.5913023,1.444853,17z/data=!4m5!3m4!1s0x12aebc8066a93ae3:0xa5c300049e3156c3!8m2!3d43.5909624!4d1.4453211
 
 {% endblock %}
