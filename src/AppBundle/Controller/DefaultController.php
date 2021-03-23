@@ -52,9 +52,6 @@ class DefaultController extends Controller
         ]);
     }
 
-    
-   
-    
     /**
      * @Route("/store", name="store_page")
      */
@@ -63,7 +60,6 @@ class DefaultController extends Controller
         // replace this example code with whatever you need
         return $this->render('@App/pages/store.html.twig');
     }
-
 
     /**
      * @Route("/admin", name="adminpage")
